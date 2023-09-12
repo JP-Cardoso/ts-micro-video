@@ -3,7 +3,7 @@ export type CategoryConstructorProps = {
     name: string;
     description?: string | null;
     is_active?: boolean
-    creted_at?: Date;
+    created_at?: Date;
 }
 
 export type CategoryCreateCommand = {
@@ -17,14 +17,14 @@ export class Category {
     name: string;
     description: string | null;
     is_active: boolean;
-    creted_at: Date;
+    created_at: Date;
 
     constructor(props: CategoryConstructorProps) {
         this.category_id = props.category_id;
         this.name = props.name;
         this.description = props.description ?? null;
         this.is_active = props.is_active ?? true;
-        this.creted_at = props.creted_at ?? new Date();
+        this.created_at = props.created_at ?? new Date();
     }
 
     //factory method
@@ -54,7 +54,7 @@ export class Category {
             name: this.name,
             description: this.description,
             is_active: this.is_active,
-            creted_at: this.creted_at
+            creted_at: this.created_at
         };
     }
 
