@@ -1,8 +1,12 @@
 import { Uuid } from './../../../shared/domain/value-objects/uuid.vo';
 import { Category, CategoryConstructorProps } from "../category.entity"
+import { CategoryValidator } from '../category.validator';
 
 describe('category unit tests', () => {
-
+    let validateSpy: any
+    beforeEach(() => {
+        validateSpy = jest.spyOn(Category, 'validate')
+    })
     describe('constructor', () => {
 
         it('should create a category with default values', () => {
@@ -60,6 +64,7 @@ describe('category unit tests', () => {
             expect(category.description).toBeNull();
             expect(category.is_active).toBeTruthy();
             expect(category.created_at).toBeInstanceOf(Date);
+            expect(validateSpy).toHaveBeenCalledTimes(1);
         });
 
         it('should create a category with name and description', () => {
@@ -74,6 +79,8 @@ describe('category unit tests', () => {
             expect(category.description).toBe("Action Movie");
             expect(category.is_active).toBeTruthy();
             expect(category.created_at).toBeInstanceOf(Date);
+            expect(validateSpy).toHaveBeenCalledTimes(1);
+
         });
 
         it('should create a category with name, description and is_active', () => {
@@ -89,6 +96,8 @@ describe('category unit tests', () => {
             expect(category.description).toBe("Action Movie");
             expect(category.is_active).toBeTruthy();
             expect(category.created_at).toBeInstanceOf(Date);
+            expect(validateSpy).toHaveBeenCalledTimes(1);
+
         });
     });
 
@@ -101,7 +110,7 @@ describe('category unit tests', () => {
             expect(category.name).toBe('Rambo');
 
             category.changeName('Bambi');
-            expect(category.name).toBe('Bambi')
+            expect(category.name).toBe('Bambi');
         });
 
         it('should change description', () => {
