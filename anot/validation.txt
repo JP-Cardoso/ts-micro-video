@@ -1,0 +1,6 @@
+O vernom e o uncle Bob, definem que a entidade ve se auto validar,
+mas ele não atribui essa função diretamente na entidade. Nos possibilitando assim, 
+criar classes externas para fazer a validação da entidade.
+
+Podemos criar uma classe responsável por isso, ou métodos dentro da própria entidade para realizar dal validação.
+Isso pode ser feito de acordo com o gosto de cada desenvolvedor.
