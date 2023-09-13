@@ -1,3 +1,4 @@
+import { Uuid } from './../../../shared/domain/value-objects/uuid.vo';
 import { Category, CategoryConstructorProps } from "../category.entity"
 
 describe('category unit tests', () => {
@@ -8,7 +9,7 @@ describe('category unit tests', () => {
             let category = new Category({
                 name: "Movie"
             });
-            expect(category.category_id).not.toBeDefined();
+            expect(category.category_id).toBeDefined();
             expect(category.name).toBe('Movie');
             expect(category.description).toBeNull();
             expect(category.is_active).toBeTruthy();
@@ -23,7 +24,7 @@ describe('category unit tests', () => {
             };
 
             const category = new Category(input);
-            expect(category.category_id).toBeUndefined();
+            expect(category.category_id).toBeInstanceOf(Uuid);
             expect(category.name).toBe('Rambo');
             expect(category.description).toBe("Action Movie");
             expect(category.is_active).toBeTruthy();
@@ -40,7 +41,7 @@ describe('category unit tests', () => {
                     created_at
                 }
             );
-            expect(category.category_id).toBeUndefined();
+            expect(category.category_id).toBeInstanceOf(Uuid);
             expect(category.name).toBe('Rambo');
             expect(category.description).toBe("Action Movie");
             expect(category.is_active).toBeFalsy();
@@ -54,7 +55,7 @@ describe('category unit tests', () => {
             const category = Category.create({
                 name: "Movie"
             });
-            expect(category.category_id).not.toBeDefined();
+            expect(category.category_id).toBeInstanceOf(Uuid);
             expect(category.name).toBe('Movie');
             expect(category.description).toBeNull();
             expect(category.is_active).toBeTruthy();
@@ -68,7 +69,7 @@ describe('category unit tests', () => {
             };
 
             const category = Category.create(input);
-            expect(category.category_id).toBeUndefined();
+            expect(category.category_id).toBeInstanceOf(Uuid);
             expect(category.name).toBe('Rambo');
             expect(category.description).toBe("Action Movie");
             expect(category.is_active).toBeTruthy();
@@ -83,7 +84,7 @@ describe('category unit tests', () => {
             };
 
             const category = Category.create(input);
-            expect(category.category_id).toBeUndefined();
+            expect(category.category_id).toBeInstanceOf(Uuid);
             expect(category.name).toBe('Rambo');
             expect(category.description).toBe("Action Movie");
             expect(category.is_active).toBeTruthy();
@@ -92,6 +93,7 @@ describe('category unit tests', () => {
     });
 
     describe('testing methods', () => {
+
         it('should change name', () => {
             let category = new Category(
                 { name: 'Rambo' }
@@ -134,5 +136,21 @@ describe('category unit tests', () => {
             expect(category.is_active).toBeFalsy();
 
         });
+    });
+
+    describe('category_id field', () => {
+        const arrange = [
+            { category_id: null }, { category_id: undefined }, { category_id: new Uuid() }
+        ];
+
+        test.each(arrange)('id = %j', ({ category_id }) => {
+            const category = new Category(
+                { name: "Movie", category_id: category_id as any }
+            );
+            expect(category.category_id).toBeInstanceOf(Uuid);
+            if (category_id instanceof Uuid) {
+                expect(category.category_id).toBe(category_id);
+            };
+        })
     })
 })
