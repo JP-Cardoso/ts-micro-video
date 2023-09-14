@@ -162,4 +162,13 @@ describe('category unit tests', () => {
             };
         })
     })
+});
+
+describe('category validator', () => {
+
+    describe('create command', () => {
+        Category.create({
+            name: null
+        })
+    })
 })
